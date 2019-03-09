@@ -5,6 +5,8 @@ import android.content.Context;
 
 import com.a.clock.Interfaces.Repository;
 import com.a.clock.Repositories.ClockDatabase;
+import com.a.clock.Repositories.TimeRepository.TimeDao;
+import com.a.clock.Repositories.TimeRepository.TimeItem;
 
 import java.util.List;
 
@@ -16,14 +18,24 @@ public class AlarmRepository implements Repository {
         Room.databaseBuilder(context, ClockDatabase.class,"database").allowMainThreadQueries().fallbackToDestructiveMigration().build();
     }
 
-    public List<AlarmItem> getElementsList(){
-        return getDatabaseDao()
+    public List<AlarmItem> getAlarmElementsList() {
+        return getAlarmDatabaseDao()
                 .getAll();
     }
 
     @Override
-    public AlarmDao getDatabaseDao() {
+    public List<TimeItem> getTimeElementsList() {
+        return null;
+    }
+
+    @Override
+    public AlarmDao getAlarmDatabaseDao() {
        return  ClockDatabase.getDatabaseInstance(context)
-               .clockDao();
+               .alarmDao();
+    }
+
+    @Override
+    public TimeDao getTimeDatabaseDao() {
+        return null;
     }
 }

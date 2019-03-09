@@ -15,7 +15,6 @@ import com.a.clock.Presenters.AlarmPresenter;
 import com.a.clock.R;
 import com.a.clock.Views.Activities.AddAlarmActivity;
 import com.a.clock.Views.Adapters.AlarmRecyclerViewAdapter;
-import com.a.clock.Views.Adapters.TimeRecyclerViewAdapter;
 
 import java.util.ArrayList;
 

@@ -5,17 +5,17 @@ import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 
-import com.a.clock.Repositories.AlarmRepository.AlarmDao;
-import com.a.clock.Repositories.AlarmRepository.AlarmItem;
+import com.a.clock.Repositories.TimeRepository.TimeDao;
+import com.a.clock.Repositories.TimeRepository.TimeItem;
 
-@Database(entities = {AlarmItem.class}, version = 7)
-public abstract class ClockDatabase extends RoomDatabase {
-    private static ClockDatabase INSTANCE;
+@Database(entities = {TimeItem.class}, version = 1)
+public abstract class TimeDatabase extends RoomDatabase {
+    private static TimeDatabase INSTANCE;
 
-    public static ClockDatabase getDatabaseInstance(Context context) {
+    public static TimeDatabase getDatabaseInstance(Context context) {
         if (INSTANCE == null) {
             INSTANCE =
-                    Room.databaseBuilder(context.getApplicationContext(), ClockDatabase.class, "user-database")
+                    Room.databaseBuilder(context.getApplicationContext(), TimeDatabase.class, "user-database")
                             // allow queries on the main thread.
                             // Don't do this on a real app! See PersistenceBasicSample for an example.
                             .allowMainThreadQueries()
@@ -25,9 +25,9 @@ public abstract class ClockDatabase extends RoomDatabase {
         return INSTANCE;
     }
 
-    public abstract AlarmDao alarmDao();
-
     public static void destroyInstance() {
         INSTANCE = null;
     }
+
+    public abstract TimeDao timeDao();
 }

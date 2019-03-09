@@ -8,7 +8,6 @@ import com.a.clock.Interfaces.View;
 import com.a.clock.Repositories.AlarmRepository.AlarmDao;
 import com.a.clock.Repositories.AlarmRepository.AlarmItem;
 import com.a.clock.Repositories.AlarmRepository.AlarmRepository;
-import com.a.clock.Repositories.ClockDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,16 +40,16 @@ public class AlarmPresenter implements Presenter {
 
 
     public List<AlarmItem> getElementsList(){
-        return repository.getDatabaseDao().getAll();
+        return repository.getAlarmDatabaseDao().getAll();
     }
 
     public AlarmDao getDatabaseDao(){
-        return repository.getDatabaseDao();
+        return repository.getAlarmDatabaseDao();
     }
 
     public void updateItem(boolean switchEnabled, int id) {
-        AlarmItem alarmItem = repository.getDatabaseDao().getById(id);
+        AlarmItem alarmItem = repository.getAlarmDatabaseDao().getById(id);
         alarmItem.enabled = switchEnabled;
-        repository.getDatabaseDao().update(alarmItem);
+        repository.getAlarmDatabaseDao().update(alarmItem);
     }
 }
