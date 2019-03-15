@@ -64,4 +64,14 @@ public class AddAlarmActivity extends AppCompatActivity implements com.a.clock.I
     public void setRecyclerView(ArrayList list1, ArrayList list2) {
 
     }
+
+    @Override
+    public void showDeleteDialog() {
+
+    }
+
+    @Override
+    public void hideDeleteDialog() {
+
+    }
 }

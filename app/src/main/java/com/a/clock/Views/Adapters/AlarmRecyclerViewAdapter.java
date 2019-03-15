@@ -8,10 +8,12 @@ import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.a.clock.Presenters.AlarmPresenter;
 import com.a.clock.R;
 import com.a.clock.Repositories.AlarmRepository.AlarmItem;
+import com.a.clock.Views.Fragments.DeleteBottomSheetDialogFragment;
 
 import java.util.List;
 
@@ -21,13 +23,18 @@ public class AlarmRecyclerViewAdapter extends RecyclerView.Adapter<AlarmRecycler
     private LayoutInflater mInflater;
     private ItemClickListener mClickListener;
     private AlarmPresenter presenter;
+    private Context context;
+    private DeleteBottomSheetDialogFragment deleteBottomSheetDialogFragment;
 
 
-    public AlarmRecyclerViewAdapter(Context context, List<AlarmItem> data, AlarmPresenter presenter) {
+    public AlarmRecyclerViewAdapter(Context context, List<AlarmItem> data, AlarmPresenter presenter, DeleteBottomSheetDialogFragment deleteBottomSheetDialogFragment) {
         this.mInflater = LayoutInflater.from(context);
+        this.context = context;
         this.mData = data;
         this.presenter = presenter;
+        this.deleteBottomSheetDialogFragment = deleteBottomSheetDialogFragment;
     }
+
 
 
     @Override
@@ -86,6 +93,15 @@ public class AlarmRecyclerViewAdapter extends RecyclerView.Adapter<AlarmRecycler
             myTextView = itemView.findViewById(R.id.alarm_item_text_view);
             mySwitch = itemView.findViewById(R.id.alarm_item_switch);
             itemView.setOnClickListener(this);
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    Toast.makeText(context, "LONG CLICK", Toast.LENGTH_SHORT).show();
+                    presenter.showDeleteDialog();
+                    deleteBottomSheetDialogFragment.setAlarmItem(getItem(getAdapterPosition()));
+                    return false;
+                }
+            });
         }
 
         @Override

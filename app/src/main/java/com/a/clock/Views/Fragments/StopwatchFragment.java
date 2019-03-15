@@ -49,4 +49,14 @@ public class StopwatchFragment extends Fragment implements com.a.clock.Interface
     public void setRecyclerView(ArrayList list1, ArrayList list2) {
 
     }
+
+    @Override
+    public void showDeleteDialog() {
+
+    }
+
+    @Override
+    public void hideDeleteDialog() {
+
+    }
 }

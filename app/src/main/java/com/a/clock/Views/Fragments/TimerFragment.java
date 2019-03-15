@@ -45,4 +45,14 @@ public class TimerFragment extends Fragment implements com.a.clock.Interfaces.Vi
     public void setRecyclerView(ArrayList list1, ArrayList list2) {
 
     }
+
+    @Override
+    public void showDeleteDialog() {
+
+    }
+
+    @Override
+    public void hideDeleteDialog() {
+
+    }
 }

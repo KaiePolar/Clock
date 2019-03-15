@@ -52,4 +52,16 @@ public class AlarmPresenter implements Presenter {
         alarmItem.enabled = switchEnabled;
         repository.getAlarmDatabaseDao().update(alarmItem);
     }
+
+    public void deleteItem(AlarmItem alarmItem) {
+        repository.getAlarmDatabaseDao().delete(alarmItem);
+    }
+
+    public void showDeleteDialog() {
+        view.showDeleteDialog();
+    }
+
+    public void hideDialog() {
+        view.hideDeleteDialog();
+    }
 }

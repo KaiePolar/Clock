@@ -24,6 +24,7 @@ public class AlarmFragment extends Fragment implements com.a.clock.Interfaces.Vi
     private FloatingActionButton addAlarmButton;
     private AlarmRecyclerViewAdapter alarmRecyclerViewAdapter;
     private AlarmPresenter presenter;
+    private DeleteBottomSheetDialogFragment deleteBottomSheetDialogFragment;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -39,9 +40,11 @@ public class AlarmFragment extends Fragment implements com.a.clock.Interfaces.Vi
 
         View view = inflater.inflate(R.layout.fragment_alarm, container, false);
 
+
         RecyclerView alarmRecyclerView = view.findViewById(R.id.alarm_recycler_view);
         alarmRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        alarmRecyclerViewAdapter = new AlarmRecyclerViewAdapter(getContext(), presenter.getElementsList(),presenter);
+        deleteBottomSheetDialogFragment = DeleteBottomSheetDialogFragment.newInstance();
+        alarmRecyclerViewAdapter = new AlarmRecyclerViewAdapter(getContext(), presenter.getElementsList(), presenter, deleteBottomSheetDialogFragment);
         alarmRecyclerView.setAdapter(alarmRecyclerViewAdapter);
         addAlarmButton = view.findViewById(R.id.alarm_add_button);
 
@@ -64,5 +67,16 @@ public class AlarmFragment extends Fragment implements com.a.clock.Interfaces.Vi
     @Override
     public void setRecyclerView(ArrayList list1, ArrayList list2) {
 
+    }
+
+    public void showDeleteDialog() {
+
+        deleteBottomSheetDialogFragment.setPresenter(presenter);
+        deleteBottomSheetDialogFragment.show(getActivity().getSupportFragmentManager(), "delete_bottom_sheet_dialog");
+    }
+
+    @Override
+    public void hideDeleteDialog() {
+        deleteBottomSheetDialogFragment.dismiss();
     }
 }

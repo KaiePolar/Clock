@@ -76,4 +76,14 @@ public class AddTimeActivity extends AppCompatActivity implements com.a.clock.In
         addTimeRecyclerViewAdapter = new AddTimeRecyclerViewAdapter(getApplicationContext(), list1, list2);
         timeRecyclerView.setAdapter(addTimeRecyclerViewAdapter);
     }
+
+    @Override
+    public void showDeleteDialog() {
+
+    }
+
+    @Override
+    public void hideDeleteDialog() {
+
+    }
 }

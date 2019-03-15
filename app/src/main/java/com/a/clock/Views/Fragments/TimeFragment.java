@@ -67,4 +67,14 @@ public class TimeFragment extends Fragment implements com.a.clock.Interfaces.Vie
     public void setRecyclerView(ArrayList list1, ArrayList list2) {
 
     }
+
+    @Override
+    public void showDeleteDialog() {
+
+    }
+
+    @Override
+    public void hideDeleteDialog() {
+
+    }
 }
