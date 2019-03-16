@@ -24,6 +24,8 @@ public class TimeFragment extends Fragment implements com.a.clock.Interfaces.Vie
     private FloatingActionButton addTimeButton;
     private TimePresenter presenter;
     private TimeRecyclerViewAdapter timeRecyclerViewAdapter;
+    private TimeDeleteBottomSheetDialogFragment timeDeleteBottomSheetDialogFragment;
+    private View view;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -35,15 +37,17 @@ public class TimeFragment extends Fragment implements com.a.clock.Interfaces.Vie
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_time, container, false);
+        view = inflater.inflate(R.layout.fragment_time, container, false);
 
         timeRecyclerView = view.findViewById(R.id.time_recycler_view);
         addTimeButton = view.findViewById(R.id.time_add_button);
 
-        RecyclerView timeRecyclerView = view.findViewById(R.id.time_recycler_view);
+        timeRecyclerView = view.findViewById(R.id.time_recycler_view);
         timeRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        timeRecyclerViewAdapter = new TimeRecyclerViewAdapter(getContext(), presenter.getElementsList(), presenter);
+        timeDeleteBottomSheetDialogFragment = TimeDeleteBottomSheetDialogFragment.newInstance();
+        timeRecyclerViewAdapter = new TimeRecyclerViewAdapter(getContext(), presenter.getElementsList(), presenter, timeDeleteBottomSheetDialogFragment);
         timeRecyclerView.setAdapter(timeRecyclerViewAdapter);
+
 
 
         addTimeButton.setOnClickListener(new View.OnClickListener() {
@@ -70,11 +74,20 @@ public class TimeFragment extends Fragment implements com.a.clock.Interfaces.Vie
 
     @Override
     public void showDeleteDialog() {
-
+        timeDeleteBottomSheetDialogFragment.setPresenter(presenter);
+        timeDeleteBottomSheetDialogFragment.show(getActivity().getSupportFragmentManager(), "delete_bottom_sheet_dialog");
     }
 
     @Override
     public void hideDeleteDialog() {
+        timeDeleteBottomSheetDialogFragment.dismiss();
+    }
 
+    @Override
+    public void refreshRecyclerViewAdapter() {
+        RecyclerView timeRecyclerView = view.findViewById(R.id.time_recycler_view);
+        timeRecyclerViewAdapter = new TimeRecyclerViewAdapter(getContext(), presenter.getElementsList(), presenter, timeDeleteBottomSheetDialogFragment);
+        timeRecyclerView.setAdapter(timeRecyclerViewAdapter);
+        timeRecyclerViewAdapter.notifyDataSetChanged();
     }
 }

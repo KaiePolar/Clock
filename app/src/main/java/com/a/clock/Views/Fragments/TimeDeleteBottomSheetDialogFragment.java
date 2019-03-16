@@ -3,34 +3,35 @@ package com.a.clock.Views.Fragments;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetDialogFragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.a.clock.Presenters.AlarmPresenter;
+import com.a.clock.Presenters.TimePresenter;
 import com.a.clock.R;
-import com.a.clock.Repositories.AlarmRepository.AlarmItem;
+import com.a.clock.Repositories.TimeRepository.TimeItem;
 
-public class DeleteBottomSheetDialogFragment extends BottomSheetDialogFragment {
+public class TimeDeleteBottomSheetDialogFragment extends BottomSheetDialogFragment {
 
     private Button deleteButton;
-    private DeleteBottomSheetDialogFragment deleteBottomSheetDialogFragment;
-    private AlarmPresenter presenter;
-    private AlarmItem alarmItem;
+    private TimePresenter presenter;
+    private TimeItem timeItem;
 
 
-    public static DeleteBottomSheetDialogFragment newInstance() {
+    public static TimeDeleteBottomSheetDialogFragment newInstance() {
 
-        return new DeleteBottomSheetDialogFragment();
+        return new TimeDeleteBottomSheetDialogFragment();
     }
 
-    public void setPresenter(AlarmPresenter presenter) {
+    public void setPresenter(TimePresenter presenter) {
         this.presenter = presenter;
     }
 
-    public void setAlarmItem(AlarmItem alarmItem) {
-        this.alarmItem = alarmItem;
+
+    public void setTimeItem(TimeItem timeItem) {
+        this.timeItem = timeItem;
     }
 
 
@@ -49,8 +50,9 @@ public class DeleteBottomSheetDialogFragment extends BottomSheetDialogFragment {
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.d("TAG", "clicked");
                 presenter.hideDialog();
-                presenter.deleteItem(alarmItem);
+                presenter.deleteItem(timeItem);
             }
         });
 
@@ -59,4 +61,3 @@ public class DeleteBottomSheetDialogFragment extends BottomSheetDialogFragment {
 
     }
 }
-

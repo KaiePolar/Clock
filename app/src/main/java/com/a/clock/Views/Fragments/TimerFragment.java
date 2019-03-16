@@ -20,6 +20,7 @@ public class TimerFragment extends Fragment implements com.a.clock.Interfaces.Vi
     private Button timerButton;
     private TimerPresenter presenter;
 
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,6 +32,7 @@ public class TimerFragment extends Fragment implements com.a.clock.Interfaces.Vi
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_timer, container, false);
+
 
         timerButton = view.findViewById(R.id.timer_start_button);
         timerTextView = view.findViewById(R.id.timer_text_view);
@@ -53,6 +55,11 @@ public class TimerFragment extends Fragment implements com.a.clock.Interfaces.Vi
 
     @Override
     public void hideDeleteDialog() {
+
+    }
+
+    @Override
+    public void refreshRecyclerViewAdapter() {
 
     }
 }

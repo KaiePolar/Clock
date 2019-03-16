@@ -40,4 +40,17 @@ public class TimePresenter implements Presenter {
     }
 
 
+    public void hideDialog() {
+        view.hideDeleteDialog();
+    }
+
+    public void deleteItem(TimeItem timeItem) {
+        repository.getTimeDatabaseDao().delete(timeItem);
+        view.refreshRecyclerViewAdapter();
+
+    }
+
+    public void showDeleteDialog() {
+        view.showDeleteDialog();
+    }
 }

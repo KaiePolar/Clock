@@ -59,4 +59,9 @@ public class StopwatchFragment extends Fragment implements com.a.clock.Interface
     public void hideDeleteDialog() {
 
     }
+
+    @Override
+    public void refreshRecyclerViewAdapter() {
+
+    }
 }

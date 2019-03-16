@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.a.clock.Presenters.TimePresenter;
 import com.a.clock.R;
 import com.a.clock.Repositories.TimeRepository.TimeItem;
+import com.a.clock.Views.Fragments.TimeDeleteBottomSheetDialogFragment;
 
 import java.util.List;
 
@@ -22,12 +23,14 @@ public class TimeRecyclerViewAdapter extends RecyclerView.Adapter<TimeRecyclerVi
     private TimePresenter presenter;
     private TextView cityNameTextView;
     private TextView cityTimeTextView;
+    private TimeDeleteBottomSheetDialogFragment timeDeleteBottomSheetDialogFragment;
 
 
-    public TimeRecyclerViewAdapter(Context context, List<TimeItem> data, TimePresenter presenter) {
+    public TimeRecyclerViewAdapter(Context context, List<TimeItem> data, TimePresenter presenter, TimeDeleteBottomSheetDialogFragment timeDeleteBottomSheetDialogFragment) {
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
         this.presenter = presenter;
+        this.timeDeleteBottomSheetDialogFragment = timeDeleteBottomSheetDialogFragment;
     }
 
 
@@ -79,6 +82,15 @@ public class TimeRecyclerViewAdapter extends RecyclerView.Adapter<TimeRecyclerVi
             cityNameTextView = itemView.findViewById(R.id.time_item_text_view1);
             cityTimeTextView = itemView.findViewById(R.id.time_item_text_view2);
             itemView.setOnClickListener(this);
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    presenter.showDeleteDialog();
+
+                    timeDeleteBottomSheetDialogFragment.setTimeItem(getItem(getAdapterPosition()));
+                    return false;
+                }
+            });
         }
 
         @Override

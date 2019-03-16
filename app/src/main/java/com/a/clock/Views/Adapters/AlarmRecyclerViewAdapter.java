@@ -13,7 +13,7 @@ import android.widget.Toast;
 import com.a.clock.Presenters.AlarmPresenter;
 import com.a.clock.R;
 import com.a.clock.Repositories.AlarmRepository.AlarmItem;
-import com.a.clock.Views.Fragments.DeleteBottomSheetDialogFragment;
+import com.a.clock.Views.Fragments.AlarmDeleteBottomSheetDialogFragment;
 
 import java.util.List;
 
@@ -24,15 +24,15 @@ public class AlarmRecyclerViewAdapter extends RecyclerView.Adapter<AlarmRecycler
     private ItemClickListener mClickListener;
     private AlarmPresenter presenter;
     private Context context;
-    private DeleteBottomSheetDialogFragment deleteBottomSheetDialogFragment;
+    private AlarmDeleteBottomSheetDialogFragment alarmDeleteBottomSheetDialogFragment;
 
 
-    public AlarmRecyclerViewAdapter(Context context, List<AlarmItem> data, AlarmPresenter presenter, DeleteBottomSheetDialogFragment deleteBottomSheetDialogFragment) {
+    public AlarmRecyclerViewAdapter(Context context, List<AlarmItem> data, AlarmPresenter presenter, AlarmDeleteBottomSheetDialogFragment alarmDeleteBottomSheetDialogFragment) {
         this.mInflater = LayoutInflater.from(context);
         this.context = context;
         this.mData = data;
         this.presenter = presenter;
-        this.deleteBottomSheetDialogFragment = deleteBottomSheetDialogFragment;
+        this.alarmDeleteBottomSheetDialogFragment = alarmDeleteBottomSheetDialogFragment;
     }
 
 
@@ -98,7 +98,7 @@ public class AlarmRecyclerViewAdapter extends RecyclerView.Adapter<AlarmRecycler
                 public boolean onLongClick(View v) {
                     Toast.makeText(context, "LONG CLICK", Toast.LENGTH_SHORT).show();
                     presenter.showDeleteDialog();
-                    deleteBottomSheetDialogFragment.setAlarmItem(getItem(getAdapterPosition()));
+                    alarmDeleteBottomSheetDialogFragment.setAlarmItem(getItem(getAdapterPosition()));
                     return false;
                 }
             });

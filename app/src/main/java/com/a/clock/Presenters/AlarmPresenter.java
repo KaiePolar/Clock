@@ -55,6 +55,7 @@ public class AlarmPresenter implements Presenter {
 
     public void deleteItem(AlarmItem alarmItem) {
         repository.getAlarmDatabaseDao().delete(alarmItem);
+        view.refreshRecyclerViewAdapter();
     }
 
     public void showDeleteDialog() {

@@ -18,7 +18,7 @@
         android:id="@+id/set_alarm_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/design_default_color_primary"
+        android:background="@color/colorPrimaryLight"
         android:text="@string/add_alarm"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

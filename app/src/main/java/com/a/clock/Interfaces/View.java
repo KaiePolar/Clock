@@ -8,4 +8,6 @@ public interface View {
     void showDeleteDialog();
 
     void hideDeleteDialog();
+
+    void refreshRecyclerViewAdapter();
 }
