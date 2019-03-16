@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.a.clock.Presenters.AlarmPresenter;
 import com.a.clock.R;
@@ -96,7 +95,7 @@ public class AlarmRecyclerViewAdapter extends RecyclerView.Adapter<AlarmRecycler
             itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
-                    Toast.makeText(context, "LONG CLICK", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(context, "LONG CLICK", Toast.LENGTH_SHORT).show();
                     presenter.showDeleteDialog();
                     alarmDeleteBottomSheetDialogFragment.setAlarmItem(getItem(getAdapterPosition()));
                     return false;

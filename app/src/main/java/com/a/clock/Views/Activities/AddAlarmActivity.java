@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Switch;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
 import com.a.clock.Presenters.AlarmPresenter;
 import com.a.clock.R;
@@ -51,10 +50,10 @@ public class AddAlarmActivity extends AppCompatActivity implements com.a.clock.I
                 alarmItem.time = String.valueOf(hour_string + ":" + minute_string);
                 alarmItem.enabled = true;
                 presenter.getDatabaseDao().insert(alarmItem);
-                Toast.makeText(getApplicationContext(), "inserted " + alarmItem.time + alarmItem.enabled, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(), "inserted " + alarmItem.time + alarmItem.enabled, Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(AddAlarmActivity.this, MainActivity.class);
                 startActivity(intent);
-                Toast.makeText(getApplicationContext(), "all " + presenter.getElementsList(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(), "all " + presenter.getElementsList(), Toast.LENGTH_SHORT).show();
             }
         });
     }

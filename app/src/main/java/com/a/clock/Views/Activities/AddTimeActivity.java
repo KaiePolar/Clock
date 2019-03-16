@@ -51,7 +51,7 @@ public class AddTimeActivity extends AppCompatActivity implements com.a.clock.In
                         final JsoupParser jsoupParser = new JsoupParser(presenter);
                         jsoupParser.execute();
                     }
-                }, 1000);
+                }, 2000);
             }
         });
 
