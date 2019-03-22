@@ -46,7 +46,7 @@ public class TimePresenter implements Presenter {
 
     public void deleteItem(TimeItem timeItem) {
         repository.getTimeDatabaseDao().delete(timeItem);
-        view.refreshRecyclerViewAdapter();
+        view.setUpTimeRecyclerViewAdapter(repository.getTimeDatabaseDao().getAll());
 
     }
 

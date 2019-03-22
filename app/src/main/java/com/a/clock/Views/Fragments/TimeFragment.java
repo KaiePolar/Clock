@@ -13,10 +13,13 @@ import android.view.ViewGroup;
 
 import com.a.clock.Presenters.TimePresenter;
 import com.a.clock.R;
+import com.a.clock.Repositories.AlarmRepository.AlarmItem;
+import com.a.clock.Repositories.TimeRepository.TimeItem;
 import com.a.clock.Views.Activities.AddTimeActivity;
 import com.a.clock.Views.Adapters.TimeRecyclerViewAdapter;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class TimeFragment extends Fragment implements com.a.clock.Interfaces.View {
 
@@ -84,7 +87,12 @@ public class TimeFragment extends Fragment implements com.a.clock.Interfaces.Vie
     }
 
     @Override
-    public void refreshRecyclerViewAdapter() {
+    public void setUpAlarmRecyclerViewAdapter(List<AlarmItem> all) {
+
+    }
+
+    @Override
+    public void setUpTimeRecyclerViewAdapter(List<TimeItem> all) {
         RecyclerView timeRecyclerView = view.findViewById(R.id.time_recycler_view);
         timeRecyclerViewAdapter = new TimeRecyclerViewAdapter(getContext(), presenter.getElementsList(), presenter, timeDeleteBottomSheetDialogFragment);
         timeRecyclerView.setAdapter(timeRecyclerViewAdapter);

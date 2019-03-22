@@ -8,15 +8,17 @@ import android.widget.Button;
 import android.widget.Switch;
 import android.widget.TimePicker;
 
-import com.a.clock.Presenters.AlarmPresenter;
+import com.a.clock.Presenters.AddAlarmPresenter;
 import com.a.clock.R;
 import com.a.clock.Repositories.AlarmRepository.AlarmItem;
+import com.a.clock.Repositories.TimeRepository.TimeItem;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class AddAlarmActivity extends AppCompatActivity implements com.a.clock.Interfaces.View {
 
-    private AlarmPresenter presenter;
+    private AddAlarmPresenter presenter;
     private Button setAlarmButton;
     private TimePicker timePicker;
     private Switch switchButton;
@@ -31,7 +33,7 @@ public class AddAlarmActivity extends AppCompatActivity implements com.a.clock.I
         switchButton = findViewById(R.id.vibe_switch);
 
 
-        presenter = new AlarmPresenter(getApplicationContext());
+        presenter = new AddAlarmPresenter(getApplicationContext());
         presenter.bindView(this);
 
 
@@ -49,7 +51,7 @@ public class AddAlarmActivity extends AppCompatActivity implements com.a.clock.I
                 AlarmItem alarmItem = new AlarmItem();
                 alarmItem.time = String.valueOf(hour_string + ":" + minute_string);
                 alarmItem.enabled = true;
-                presenter.getDatabaseDao().insert(alarmItem);
+                presenter.addAlarmButtonClicked(alarmItem);
                 //Toast.makeText(getApplicationContext(), "inserted " + alarmItem.time + alarmItem.enabled, Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(AddAlarmActivity.this, MainActivity.class);
                 startActivity(intent);
@@ -75,7 +77,12 @@ public class AddAlarmActivity extends AppCompatActivity implements com.a.clock.I
     }
 
     @Override
-    public void refreshRecyclerViewAdapter() {
+    public void setUpAlarmRecyclerViewAdapter(List<AlarmItem> all) {
+
+    }
+
+    @Override
+    public void setUpTimeRecyclerViewAdapter(List<TimeItem> all) {
 
     }
 }

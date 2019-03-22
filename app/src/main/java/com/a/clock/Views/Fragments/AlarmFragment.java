@@ -13,10 +13,13 @@ import android.view.ViewGroup;
 
 import com.a.clock.Presenters.AlarmPresenter;
 import com.a.clock.R;
+import com.a.clock.Repositories.AlarmRepository.AlarmItem;
+import com.a.clock.Repositories.TimeRepository.TimeItem;
 import com.a.clock.Views.Activities.AddAlarmActivity;
 import com.a.clock.Views.Adapters.AlarmRecyclerViewAdapter;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class AlarmFragment extends Fragment implements com.a.clock.Interfaces.View {
 
@@ -37,17 +40,13 @@ public class AlarmFragment extends Fragment implements com.a.clock.Interfaces.Vi
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         presenter = new AlarmPresenter(getContext());
-        presenter.bindView(this);
+
 
         view = inflater.inflate(R.layout.fragment_alarm, container, false);
 
-
-        alarmRecyclerView = view.findViewById(R.id.alarm_recycler_view);
-        alarmRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        alarmDeleteBottomSheetDialogFragment = AlarmDeleteBottomSheetDialogFragment.newInstance();
-        alarmRecyclerViewAdapter = new AlarmRecyclerViewAdapter(getContext(), presenter.getElementsList(), presenter, alarmDeleteBottomSheetDialogFragment);
-        alarmRecyclerView.setAdapter(alarmRecyclerViewAdapter);
         addAlarmButton = view.findViewById(R.id.alarm_add_button);
+        alarmDeleteBottomSheetDialogFragment = AlarmDeleteBottomSheetDialogFragment.newInstance();
+        presenter.bindView(this);
 
         addAlarmButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,11 +73,17 @@ public class AlarmFragment extends Fragment implements com.a.clock.Interfaces.Vi
         alarmDeleteBottomSheetDialogFragment.show(getActivity().getSupportFragmentManager(), "delete_bottom_sheet_dialog");
     }
 
-    public void refreshRecyclerViewAdapter() {
-        RecyclerView alarmRecyclerView = view.findViewById(R.id.alarm_recycler_view);
-        alarmRecyclerViewAdapter = new AlarmRecyclerViewAdapter(getContext(), presenter.getElementsList(), presenter, alarmDeleteBottomSheetDialogFragment);
+    public void setUpAlarmRecyclerViewAdapter(List<AlarmItem> elements) {
+        alarmRecyclerView = view.findViewById(R.id.alarm_recycler_view);
+        alarmRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        alarmRecyclerViewAdapter = new AlarmRecyclerViewAdapter(getContext(), elements, presenter, alarmDeleteBottomSheetDialogFragment);
         alarmRecyclerView.setAdapter(alarmRecyclerViewAdapter);
         alarmRecyclerViewAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void setUpTimeRecyclerViewAdapter(List<TimeItem> all) {
+
     }
 
     @Override

@@ -11,8 +11,11 @@ import android.widget.TextView;
 
 import com.a.clock.Presenters.StopwatchPresenter;
 import com.a.clock.R;
+import com.a.clock.Repositories.AlarmRepository.AlarmItem;
+import com.a.clock.Repositories.TimeRepository.TimeItem;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class StopwatchFragment extends Fragment implements com.a.clock.Interfaces.View {
 
@@ -61,7 +64,12 @@ public class StopwatchFragment extends Fragment implements com.a.clock.Interface
     }
 
     @Override
-    public void refreshRecyclerViewAdapter() {
+    public void setUpAlarmRecyclerViewAdapter(List<AlarmItem> all) {
+
+    }
+
+    @Override
+    public void setUpTimeRecyclerViewAdapter(List<TimeItem> all) {
 
     }
 }

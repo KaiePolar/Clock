@@ -14,9 +14,12 @@ import com.a.clock.AdditionalClasses.JsoupParser;
 import com.a.clock.Interfaces.Presenter;
 import com.a.clock.Presenters.AddTimePresenter;
 import com.a.clock.R;
+import com.a.clock.Repositories.AlarmRepository.AlarmItem;
+import com.a.clock.Repositories.TimeRepository.TimeItem;
 import com.a.clock.Views.Adapters.AddTimeRecyclerViewAdapter;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class AddTimeActivity extends AppCompatActivity implements com.a.clock.Interfaces.View {
 
@@ -89,7 +92,12 @@ public class AddTimeActivity extends AppCompatActivity implements com.a.clock.In
     }
 
     @Override
-    public void refreshRecyclerViewAdapter() {
+    public void setUpAlarmRecyclerViewAdapter(List<AlarmItem> all) {
+
+    }
+
+    @Override
+    public void setUpTimeRecyclerViewAdapter(List<TimeItem> all) {
 
     }
 }

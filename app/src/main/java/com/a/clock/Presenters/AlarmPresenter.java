@@ -25,6 +25,7 @@ public class AlarmPresenter implements Presenter {
     @Override
     public void bindView(View view) {
         this.view = view;
+        this.view.setUpAlarmRecyclerViewAdapter(repository.getAlarmDatabaseDao().getAll());
 
     }
 
@@ -55,7 +56,7 @@ public class AlarmPresenter implements Presenter {
 
     public void deleteItem(AlarmItem alarmItem) {
         repository.getAlarmDatabaseDao().delete(alarmItem);
-        view.refreshRecyclerViewAdapter();
+        view.setUpAlarmRecyclerViewAdapter(repository.getAlarmDatabaseDao().getAll());
     }
 
     public void showDeleteDialog() {
@@ -65,4 +66,5 @@ public class AlarmPresenter implements Presenter {
     public void hideDialog() {
         view.hideDeleteDialog();
     }
+
 }
