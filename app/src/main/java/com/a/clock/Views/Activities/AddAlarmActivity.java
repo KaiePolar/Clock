@@ -51,6 +51,7 @@ public class AddAlarmActivity extends AppCompatActivity implements com.a.clock.I
                 AlarmItem alarmItem = new AlarmItem();
                 alarmItem.time = String.valueOf(hour_string + ":" + minute_string);
                 alarmItem.enabled = true;
+                //alarmItem.alarm = new Alarm(hour_string,minute_string,getApplicationContext());
                 presenter.addAlarmButtonClicked(alarmItem);
                 //Toast.makeText(getApplicationContext(), "inserted " + alarmItem.time + alarmItem.enabled, Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(AddAlarmActivity.this, MainActivity.class);

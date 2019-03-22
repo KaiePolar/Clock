@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.a.clock.Presenters.AlarmPresenter;
 import com.a.clock.R;
@@ -46,6 +47,9 @@ public class AlarmRecyclerViewAdapter extends RecyclerView.Adapter<AlarmRecycler
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         String alarmItemTime = String.valueOf(mData.get(position).time);
+        final int hour = Integer.parseInt(alarmItemTime.substring(0, alarmItemTime.indexOf(':')));
+        final int minute = Integer.parseInt(alarmItemTime.substring(alarmItemTime.indexOf(':') + 1));
+
         boolean alarmItemEnabled = mData.get(position).enabled;
         final int id = mData.get(position).id;
         holder.myTextView.setText(alarmItemTime);
@@ -56,6 +60,13 @@ public class AlarmRecyclerViewAdapter extends RecyclerView.Adapter<AlarmRecycler
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 boolean switchEnabled = holder.mySwitch.isChecked();
                 presenter.updateItem(switchEnabled,id);
+                if (switchEnabled) {
+                    //getItem(position).alarm = new Alarm();
+                    Toast.makeText(context, hour + " " + minute, Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(context, hour + " " + minute, Toast.LENGTH_SHORT).show();
+                }
+
 
             }
         });

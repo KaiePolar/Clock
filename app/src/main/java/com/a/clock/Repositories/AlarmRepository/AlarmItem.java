@@ -19,4 +19,6 @@ public class AlarmItem {
     public boolean vibrating;
 
     public boolean repeating;
+
+    //public Alarm alarm;
 }
