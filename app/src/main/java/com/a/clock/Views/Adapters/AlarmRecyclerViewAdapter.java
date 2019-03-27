@@ -10,6 +10,7 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.a.clock.AdditionalClasses.Alarm;
 import com.a.clock.Presenters.AlarmPresenter;
 import com.a.clock.R;
 import com.a.clock.Repositories.AlarmRepository.AlarmItem;
@@ -24,6 +25,7 @@ public class AlarmRecyclerViewAdapter extends RecyclerView.Adapter<AlarmRecycler
     private ItemClickListener mClickListener;
     private AlarmPresenter presenter;
     private Context context;
+    private Alarm alarm;
     private AlarmDeleteBottomSheetDialogFragment alarmDeleteBottomSheetDialogFragment;
 
 
@@ -34,7 +36,6 @@ public class AlarmRecyclerViewAdapter extends RecyclerView.Adapter<AlarmRecycler
         this.presenter = presenter;
         this.alarmDeleteBottomSheetDialogFragment = alarmDeleteBottomSheetDialogFragment;
     }
-
 
 
     @Override
@@ -52,24 +53,27 @@ public class AlarmRecyclerViewAdapter extends RecyclerView.Adapter<AlarmRecycler
 
         boolean alarmItemEnabled = mData.get(position).enabled;
         final int id = mData.get(position).id;
-        holder.myTextView.setText(alarmItemTime);
-        holder.mySwitch.setChecked(alarmItemEnabled);
 
         holder.mySwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 boolean switchEnabled = holder.mySwitch.isChecked();
-                presenter.updateItem(switchEnabled,id);
+                presenter.updateItem(switchEnabled, id);
                 if (switchEnabled) {
-                    //getItem(position).alarm = new Alarm();
                     Toast.makeText(context, hour + " " + minute, Toast.LENGTH_SHORT).show();
+                    alarm = new Alarm(String.valueOf(hour), String.valueOf(minute), context, mData.get(position).id);
                 } else {
                     Toast.makeText(context, hour + " " + minute, Toast.LENGTH_SHORT).show();
+                    if (!(alarm == null)) {
+                        alarm.cancelAlarm();
+                    }
                 }
 
 
             }
         });
+        holder.myTextView.setText(alarmItemTime);
+        holder.mySwitch.setChecked(alarmItemEnabled);
     }
 
 
@@ -106,7 +110,6 @@ public class AlarmRecyclerViewAdapter extends RecyclerView.Adapter<AlarmRecycler
             itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
-                    //Toast.makeText(context, "LONG CLICK", Toast.LENGTH_SHORT).show();
                     presenter.showDeleteDialog();
                     alarmDeleteBottomSheetDialogFragment.setAlarmItem(getItem(getAdapterPosition()));
                     return false;

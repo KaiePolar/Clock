@@ -14,24 +14,34 @@ public class Alarm {
     private Intent intent;
     private PendingIntent pendingIntent;
 
-    public Alarm(String hour_string, String minute_string, Context context) {
+    private boolean enabled;
+
+    public Alarm(String hour_string, String minute_string, Context context, int requestCode) {
         calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(hour_string));
         calendar.set(Calendar.MINUTE, Integer.parseInt(minute_string));
-        if (calendar.before(Calendar.getInstance())) {
-            calendar.add(Calendar.DATE, 1);
-        }
+        alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+//        if (calendar.before(Calendar.getInstance())) {
+//            calendar.add(Calendar.DATE, 1);
+//        }
 
         intent = new Intent(context, AlarmReceiver.class);
-        pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        pendingIntent = PendingIntent.getBroadcast(context, requestCode, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
         } else {
             alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
         }
+        enabled = true;
+    }
 
+    public boolean isEnabled() {
+        return enabled;
     }
 
     public void cancelAlarm() {
-        alarmManager.cancel(pendingIntent);
+        if (!(alarmManager == null) && !(pendingIntent == null)) {
+            alarmManager.cancel(pendingIntent);
+            enabled = false;
+        }
     }
 }

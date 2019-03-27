@@ -12,12 +12,16 @@
         <activity android:name=".Views.Activities.AddTimeActivity"></activity>
         <activity android:name=".Views.Activities.AddAlarmActivity" />
         <activity android:name=".Views.Activities.MainActivity">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
+
+        <receiver android:name=".AdditionalClasses.AlarmReceiver" />
     </application>
 
     <uses-permission android:name="android.permission.INTERNET"/>
