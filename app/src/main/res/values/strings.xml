@@ -1,5 +1,6 @@
 <resources>
-    <string name="app_name">CLOCK</string>
+
+    <string name="app_name">Clock</string>
     <string name="start">START</string>
     <string name="timer">TIMER</string>
     <string name="pause">PAUSE</string>
@@ -12,7 +13,6 @@
     <string name="repeating">REPEATING</string>
     <string name="vibration">VIBRATION</string>
     <string name="add_alarm">ADD ALARM</string>
-
     <string name="back">BACK</string>
 
 </resources>
