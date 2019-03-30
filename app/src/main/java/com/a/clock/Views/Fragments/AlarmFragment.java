@@ -33,13 +33,14 @@ public class AlarmFragment extends Fragment implements com.a.clock.Interfaces.Vi
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        presenter = new AlarmPresenter(getContext());
+
 
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        presenter = new AlarmPresenter(getContext());
 
 
         view = inflater.inflate(R.layout.fragment_alarm, container, false);
@@ -68,7 +69,6 @@ public class AlarmFragment extends Fragment implements com.a.clock.Interfaces.Vi
     }
 
     public void showDeleteDialog() {
-
         alarmDeleteBottomSheetDialogFragment.setPresenter(presenter);
         alarmDeleteBottomSheetDialogFragment.show(getActivity().getSupportFragmentManager(), "delete_bottom_sheet_dialog");
     }

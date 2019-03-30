@@ -34,7 +34,7 @@ public class TimeFragment extends Fragment implements com.a.clock.Interfaces.Vie
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         presenter = new TimePresenter(getContext());
-        presenter.bindView(this);
+
     }
 
     @Override
@@ -44,6 +44,7 @@ public class TimeFragment extends Fragment implements com.a.clock.Interfaces.Vie
 
         timeRecyclerView = view.findViewById(R.id.time_recycler_view);
         addTimeButton = view.findViewById(R.id.time_add_button);
+        presenter.bindView(this);
 
         timeRecyclerView = view.findViewById(R.id.time_recycler_view);
         timeRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));

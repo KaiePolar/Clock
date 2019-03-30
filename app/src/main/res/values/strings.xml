@@ -14,5 +14,7 @@
     <string name="vibration">VIBRATION</string>
     <string name="add_alarm">ADD ALARM</string>
     <string name="back">BACK</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
 
 </resources>

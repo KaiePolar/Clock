@@ -28,12 +28,13 @@ public class TimerFragment extends Fragment implements com.a.clock.Interfaces.Vi
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         presenter = new TimerPresenter();
-        presenter.bindView(this);
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        presenter.bindView(this);
         View view = inflater.inflate(R.layout.fragment_timer, container, false);
 
 

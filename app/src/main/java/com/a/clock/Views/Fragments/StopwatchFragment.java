@@ -27,13 +27,15 @@ public class StopwatchFragment extends Fragment implements com.a.clock.Interface
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         presenter = new StopwatchPresenter();
-        presenter.bindView(this);
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         View view = inflater.inflate(R.layout.fragment_stopwatch, container, false);
+        presenter.bindView(this);
 
         startButton = view.findViewById(R.id.stopwatch_start_button);
         resetButton = view.findViewById(R.id.stopwatch_reset_button);
