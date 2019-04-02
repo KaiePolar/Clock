@@ -10,8 +10,8 @@
     <string name="time">TIME</string>
     <string name="delete">DELETE</string>
     <string name="stopwatch">STOPWATCH</string>
-    <string name="repeating">REPEATING</string>
-    <string name="vibration">VIBRATION</string>
+    <string name="repeating">Repeating</string>
+    <string name="vibration">Vibration</string>
     <string name="add_alarm">ADD ALARM</string>
     <string name="back">BACK</string>
     <string name="ok">OK</string>

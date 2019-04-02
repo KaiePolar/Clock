@@ -10,6 +10,10 @@
         android:id="@+id/timePicker"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:amPmBackgroundColor="@color/colorPrimaryDark"
+        android:headerBackground="@color/colorPrimaryDark"
+        android:numbersSelectorColor="@color/colorPrimaryDark"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -20,10 +24,10 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="16dp"
-        android:background="@color/colorPrimary"
+        android:background="@color/colorPrimaryDark"
         android:text="@string/ok"
 
-        android:textColor="@color/colorPrimaryWhite"
+        android:textColor="@color/colorWhite"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -62,7 +66,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="16dp"
         android:background="@color/colorTransparent"
-        android:backgroundTint="@color/colorPrimaryWhite"
+        android:backgroundTint="@color/colorPrimaryLight"
         android:shadowColor="@color/colorTransparent"
         android:shadowDx="0"
         android:shadowDy="0"
