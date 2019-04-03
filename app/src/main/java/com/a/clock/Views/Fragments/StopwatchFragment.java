@@ -1,12 +1,18 @@
 package com.a.clock.Views.Fragments;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.SystemClock;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.a.clock.Presenters.StopwatchPresenter;
@@ -15,21 +21,31 @@ import com.a.clock.Repositories.AlarmRepository.AlarmItem;
 import com.a.clock.Repositories.TimeRepository.TimeItem;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class StopwatchFragment extends Fragment implements com.a.clock.Interfaces.View {
 
-    private Button startButton, resetButton, pauseButton;
-    private TextView stopwatchTextView;
     private StopwatchPresenter presenter;
+    private TextView textView;
+    private Button  resetButton, lapButton;
+    private FloatingActionButton startButton, pauseButton;
+    private long millisecondTime, startTime, timeBuff, updateTime = 0L;
+    private Handler handler;
+    private int seconds, minutes, milliSeconds;
+    private ListView lapsListView;
+    private String[] ListElements = new String[]{};
+    private ArrayList<String> ListElementsArrayList;
+    private ArrayAdapter<String> adapter;
+    private Runnable runnable;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         presenter = new StopwatchPresenter();
-
     }
 
+    @SuppressLint("RestrictedApi")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -37,17 +53,115 @@ public class StopwatchFragment extends Fragment implements com.a.clock.Interface
         View view = inflater.inflate(R.layout.fragment_stopwatch, container, false);
         presenter.bindView(this);
 
+        textView = view.findViewById(R.id.stopwatch_time_textview);
         startButton = view.findViewById(R.id.stopwatch_start_button);
-        resetButton = view.findViewById(R.id.stopwatch_reset_button);
         pauseButton = view.findViewById(R.id.stopwatch_pause_button);
-        stopwatchTextView = view.findViewById(R.id.stopwatch_text_view);
+        resetButton = view.findViewById(R.id.stopwatch_reset_button);
+        lapButton = view.findViewById(R.id.stopwatch_lap_button);
+        lapsListView = view.findViewById(R.id.stopwatch_laps_listview);
+
+        startButton.setVisibility(View.VISIBLE);
+        pauseButton.setVisibility(View.GONE);
+
+        handler = new Handler();
+
+        ListElementsArrayList = new ArrayList<String>(Arrays.asList(ListElements));
+
+        adapter = new ArrayAdapter<String>(getContext(),
+                android.R.layout.simple_list_item_1,
+                ListElementsArrayList
+        );
+
+        lapsListView.setAdapter(adapter);
+
+        startButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                startTime = SystemClock.uptimeMillis();
+                handler.postDelayed(runnable, 0);
+
+                resetButton.setEnabled(false);
+                startButton.setVisibility(View.GONE);
+                pauseButton.setVisibility(View.VISIBLE);
+
+            }
+        });
+
+        pauseButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                timeBuff += millisecondTime;
+
+                handler.removeCallbacks(runnable);
+
+                resetButton.setEnabled(true);
+                pauseButton.setVisibility(View.GONE);
+                startButton.setVisibility(View.VISIBLE);
+
+            }
+        });
+
+        resetButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                millisecondTime = 0L;
+                startTime = 0L;
+                timeBuff = 0L;
+                updateTime = 0L;
+                seconds = 0;
+                minutes = 0;
+                milliSeconds = 0;
+
+                textView.setText("00:00:00");
+
+                ListElementsArrayList.clear();
+
+                adapter.notifyDataSetChanged();
+            }
+        });
+
+        lapButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                ListElementsArrayList.add(textView.getText().toString());
+
+                adapter.notifyDataSetChanged();
+            }
+        });
+
+
+        runnable = new Runnable() {
+
+            public void run() {
+
+                millisecondTime = SystemClock.uptimeMillis() - startTime;
+
+                updateTime = timeBuff + millisecondTime;
+
+                seconds = (int) (updateTime / 1000);
+
+                minutes = seconds / 60;
+
+                seconds = seconds % 60;
+
+                milliSeconds = (int) (updateTime % 1000);
+
+                textView.setText("" + minutes + ":"
+                        + String.format("%02d", seconds) + ":"
+                        + String.format("%03d", milliSeconds));
+
+                handler.postDelayed(this, 0);
+            }
+
+        };
+
 
         return view;
     }
-
-
-
-
 
 
     @Override

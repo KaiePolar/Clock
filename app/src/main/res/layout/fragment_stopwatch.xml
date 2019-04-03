@@ -7,51 +7,103 @@
     tools:context=".Views.Fragments.StopwatchFragment">
 
 
+    <TextView
+        android:id="@+id/stopwatch_time_textview"
+        android:layout_width="match_parent"
+        android:layout_height="88dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="24dp"
+        android:gravity="center"
+        android:text="00:00:00"
+        android:textColor="@color/colorPrimaryLight"
+        android:textSize="50dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/stopwatch_start_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="8dp"
+        android:src="@drawable/play"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/stopwatch_time_textview" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/stopwatch_pause_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
+
+        android:layout_marginEnd="8dp"
+        android:src="@drawable/pause"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/stopwatch_time_textview" />
+
     <Button
         android:id="@+id/stopwatch_reset_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:gravity="center"
-        android:text="@string/reset"
+        android:layout_alignTop="@+id/stopwatch_pause_button"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="32dp"
+
+
+        android:background="@color/colorTransparent"
+        android:text="Reset"
+        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/stopwatch_text_view" />
+        app:layout_constraintTop_toBottomOf="@+id/stopwatch_time_textview" />
 
     <Button
-        android:id="@+id/stopwatch_start_button"
+        android:id="@+id/stopwatch_lap_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="32dp"
-        android:gravity="center"
-        android:text="@string/start"
-        app:layout_constraintEnd_toStartOf="@+id/stopwatch_pause_button"
-        app:layout_constraintStart_toEndOf="@+id/stopwatch_reset_button"
-        app:layout_constraintTop_toBottomOf="@+id/stopwatch_text_view" />
+        android:layout_below="@+id/stopwatch_start_button"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="24dp"
 
-    <Button
-        android:id="@+id/stopwatch_pause_button"
+        android:background="@color/colorTransparent"
+        android:text="Save Lap"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/stopwatch_time_textview" />
+
+
+    <ListView
+        android:id="@+id/stopwatch_laps_listview"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:gravity="center"
-        android:text="@string/pause"
+        android:layout_height="326dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="28dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/stopwatch_text_view" />
-
-    <TextView
-        android:id="@+id/stopwatch_text_view"
-        android:layout_width="99dp"
-        android:layout_height="46dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="260dp"
-        android:layout_marginEnd="8dp"
-        android:gravity="center"
-        android:text="@string/_00_00_00"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/stopwatch_pause_button"
+        app:layout_constraintVertical_bias="1.0" />
+
+
 </android.support.constraint.ConstraintLayout>
