@@ -19,7 +19,7 @@
         android:gravity="center"
         android:text="00:00:00"
         android:textColor="@color/colorPrimaryLight"
-        android:textSize="50dp"
+        android:textSize="50sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"

@@ -1,24 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-xmlns:tools="http://schemas.android.com/tools"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-tools:context=".Views.Fragments.TimerFragment">
-
-    <TextView
-        android:id="@+id/timer_text_view"
-        android:layout_width="188dp"
-        android:layout_height="62dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="56dp"
-        android:layout_marginEnd="8dp"
-        android:gravity="center"
-        android:text="@string/timer"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Views.Fragments.TimerFragment">
 
     <Button
         android:id="@+id/timer_start_button"
@@ -32,5 +18,146 @@ tools:context=".Views.Fragments.TimerFragment">
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/hours_digits_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="56dp"
+        android:gravity="center"
+        android:text="00"
+        android:textColor="@color/colorPrimaryLight"
+        android:textSize="50sp"
+        app:layout_constraintEnd_toStartOf="@+id/minutes_digits_text_view"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/seconds_digits_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="100dp"
+        android:gravity="center"
+        android:text="00"
+        android:textColor="@color/colorPrimaryLight"
+        android:textSize="50sp"
+        app:layout_constraintStart_toEndOf="@+id/minutes_digits_text_view"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/minutes_digits_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="8dp"
+        android:gravity="center"
+        android:text="00"
+        android:textColor="@color/colorPrimaryLight"
+        android:textSize="50sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/hours_up_image_view"
+        android:layout_width="56dp"
+        android:layout_height="39dp"
+        android:layout_marginEnd="56dp"
+        android:layout_marginBottom="8dp"
+        android:src="@drawable/arroww"
+        app:layout_constraintBottom_toTopOf="@+id/hours_digits_text_view"
+        app:layout_constraintEnd_toStartOf="@+id/minutes_up_image_view" />
+
+    <ImageView
+        android:id="@+id/minutes_up_image_view"
+        android:layout_width="56dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:src="@drawable/arroww"
+        app:layout_constraintBottom_toTopOf="@+id/minutes_digits_text_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/seconds_up_image_view"
+        android:layout_width="56dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="56dp"
+        android:layout_marginBottom="8dp"
+        android:src="@drawable/arroww"
+        app:layout_constraintBottom_toTopOf="@+id/seconds_digits_text_view"
+        app:layout_constraintStart_toEndOf="@+id/minutes_up_image_view" />
+
+    <ImageView
+        android:id="@+id/hours_down_image_view"
+        android:layout_width="56dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="56dp"
+        android:src="@drawable/down_arrow"
+        app:layout_constraintEnd_toStartOf="@+id/minutes_down_image_view"
+        app:layout_constraintTop_toBottomOf="@+id/hours_text_view" />
+
+    <ImageView
+        android:id="@+id/seconds_down_image_view"
+        android:layout_width="56dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/down_arrow"
+        app:layout_constraintStart_toEndOf="@+id/minutes_down_image_view"
+        app:layout_constraintTop_toBottomOf="@+id/seconds_text_view" />
+
+    <ImageView
+        android:id="@+id/minutes_down_image_view"
+        android:layout_width="56dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:src="@drawable/down_arrow"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/minutes_text_view" />
+
+    <TextView
+        android:id="@+id/hours_text_view"
+        android:layout_width="56dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="56dp"
+        android:gravity="center"
+        android:text="Hours"
+        android:textColor="@color/colorPrimaryLight"
+        app:layout_constraintEnd_toStartOf="@+id/minutes_text_view"
+        app:layout_constraintTop_toBottomOf="@+id/hours_digits_text_view" />
+
+    <TextView
+        android:id="@+id/minutes_text_view"
+        android:layout_width="56dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:gravity="center"
+        android:text="Minutes"
+        android:textColor="@color/colorPrimaryLight"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/minutes_digits_text_view" />
+
+    <TextView
+        android:id="@+id/seconds_text_view"
+        android:layout_width="56dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="56dp"
+        android:gravity="center"
+        android:text="Seconds"
+        android:textColor="@color/colorPrimaryLight"
+        app:layout_constraintStart_toEndOf="@+id/minutes_text_view"
+        app:layout_constraintTop_toBottomOf="@+id/seconds_digits_text_view" />
 
 </android.support.constraint.ConstraintLayout>
