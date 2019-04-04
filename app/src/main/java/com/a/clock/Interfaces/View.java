@@ -16,4 +16,8 @@ public interface View {
     void setUpAlarmRecyclerViewAdapter(List<AlarmItem> all);
 
     void setUpTimeRecyclerViewAdapter(List<TimeItem> all);
+
+    interface TimerView{
+
+    }
 }

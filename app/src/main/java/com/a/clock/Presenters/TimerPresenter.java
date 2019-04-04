@@ -1,28 +1,20 @@
 package com.a.clock.Presenters;
 
 import com.a.clock.Interfaces.Presenter;
-import com.a.clock.Interfaces.View;
+import com.a.clock.Views.Fragments.TimerFragment;
 
-import java.util.ArrayList;
+public class TimerPresenter implements Presenter.TimerPresenter {
 
-public class TimerPresenter implements Presenter {
-
-    private View view;
+    private TimerFragment view;
 
     @Override
-    public void bindView(View view) {
+    public void bindView(TimerFragment view) {
         this.view = view;
     }
 
     @Override
-    public void unbindView() {
-        view = null;
+    public void reduceSeconds() {
+        view.reduceSeconds();
     }
-
-    @Override
-    public ArrayList<String> returnListForAdapter(ArrayList<String> namesList, ArrayList<String> timesList) {
-        return null;
-    }
-
 
 }
