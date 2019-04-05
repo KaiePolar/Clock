@@ -167,8 +167,7 @@ public class TimerFragment extends Fragment implements com.a.clock.Interfaces.Vi
                 long time = seconds + minutes + hours;
                 timer = new CountTimer(time, 1000, presenter, getContext());
                 timer.start();
-                startButton.hide();
-                pauseButton.show();
+                switchStartPauseButtons();
             }
         });
 
@@ -176,8 +175,7 @@ public class TimerFragment extends Fragment implements com.a.clock.Interfaces.Vi
             @Override
             public void onClick(View v) {
                 timer.stop();
-                pauseButton.hide();
-                startButton.show();
+                switchStartPauseButtons();
             }
         });
 
@@ -203,19 +201,12 @@ public class TimerFragment extends Fragment implements com.a.clock.Interfaces.Vi
         if (secondsInt >= 11) {
             secondsTextView.setText(String.valueOf(--secondsInt));
         }
-        if (secondsInt == 0 && minutesInt != 0) {
-            secondsTextView.setText("00");
+        if (secondsInt == -1 ) {
             secondsInt = 60;
+            secondsTextView.setText(String.valueOf(--secondsInt));
             reduceMinutes();
         }
-        if (secondsInt == 0 && minutesInt == 0 && hoursInt != 0) {
-            secondsTextView.setText("00");
-            secondsInt = 60;
-            minutesInt = 60;
-            minutesTextView.setText(String.valueOf(--minutesInt));
-            reduceHours();
 
-        }
     }
 
     public void reduceMinutes() {
@@ -225,12 +216,12 @@ public class TimerFragment extends Fragment implements com.a.clock.Interfaces.Vi
         if (minutesInt >= 11) {
             minutesTextView.setText(String.valueOf(--minutesInt));
         }
-        if (minutesInt == 0 && hoursInt != 0) {
+        if(minutesInt==-1&&hoursInt!=0){
             minutesInt = 60;
             minutesTextView.setText(String.valueOf(--minutesInt));
-
             reduceHours();
         }
+
     }
 
     public void reduceHours() {
@@ -241,5 +232,16 @@ public class TimerFragment extends Fragment implements com.a.clock.Interfaces.Vi
             hoursTextView.setText(String.valueOf(--hoursInt));
         }
 
+    }
+
+    public void switchStartPauseButtons(){
+        if(startButton.isShown()){
+            startButton.hide();
+            pauseButton.show();
+        }
+        else if(pauseButton.isShown()){
+            pauseButton.hide();
+            startButton.show();
+        }
     }
 }

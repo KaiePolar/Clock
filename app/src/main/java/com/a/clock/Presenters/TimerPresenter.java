@@ -17,4 +17,9 @@ public class TimerPresenter implements Presenter.TimerPresenter {
         view.reduceSeconds();
     }
 
+    @Override
+    public void switchStartPauseButtons() {
+        view.switchStartPauseButtons();
+    }
+
 }

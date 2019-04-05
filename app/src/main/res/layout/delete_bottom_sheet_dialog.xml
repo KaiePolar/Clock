@@ -6,7 +6,7 @@
         android:id="@+id/delete_button_dialog"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimaryLight"
+        android:background="@color/colorWhite"
         android:text="@string/delete" />
 
 </android.support.design.widget.CoordinatorLayout>

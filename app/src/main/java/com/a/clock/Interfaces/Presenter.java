@@ -12,6 +12,7 @@ public interface Presenter {
     interface TimerPresenter{
     void bindView(TimerFragment view);
     void reduceSeconds();
+    void switchStartPauseButtons();
     }
 
 }

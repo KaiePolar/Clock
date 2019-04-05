@@ -20,7 +20,7 @@ public class CountTimer {
         this.presenter = presenter;
         this.countDownInterval = pCountDownInterval;
         status = false;
-        Initialize();
+        init();
     }
 
     public void stop() {
@@ -34,18 +34,19 @@ public class CountTimer {
     public void start() {
         status = true;
     }
-    public void Initialize()
-    {
+
+    public void init() {
         final Handler handler = new Handler();
         Log.d("status", "starting");
-        final Runnable counter = new Runnable(){
+        final Runnable counter = new Runnable() {
 
-            public void run(){
-                long sec = millisInFuture/1000;
-                if(status) {
-                    if(millisInFuture <= 0) {
+            public void run() {
+                long sec = millisInFuture / 1000;
+                if (status) {
+                    if (millisInFuture <= 0) {
                         Log.d("status", "done");
-                        Toast.makeText(context,"Done", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "Done", Toast.LENGTH_SHORT).show();
+                        presenter.switchStartPauseButtons();
                     } else {
                         Log.d("status", Long.toString(sec) + " seconds remain");
                         millisInFuture -= countDownInterval;
