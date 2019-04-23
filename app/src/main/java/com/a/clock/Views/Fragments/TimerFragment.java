@@ -17,16 +17,16 @@ import com.a.clock.R;
 
 public class TimerFragment extends Fragment implements com.a.clock.Interfaces.View.TimerView {
 
-    int hoursInt, minutesInt, secondsInt;
+    private int hoursInt, minutesInt, secondsInt;
     private TimerPresenter presenter;
     private ImageView hoursUpImageView, minutesUpImageView, secondsUpImageView;
     private ImageView hoursDownImageView, minutesDownImageView, secondsDownImageView;
     private TextView hoursTextView, minutesTextView, secondsTextView;
-    CountTimer timer;
+    private CountTimer timer;
     private String hours = "00", minutes = "00", seconds = "00";
     private Button resetButton;
     private FloatingActionButton startButton, pauseButton;
-
+    private View view;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -39,7 +39,7 @@ public class TimerFragment extends Fragment implements com.a.clock.Interfaces.Vi
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         presenter.bindView(this);
-        final View view = inflater.inflate(R.layout.fragment_timer, container, false);
+        view = inflater.inflate(R.layout.fragment_timer, container, false);
         hoursDownImageView = view.findViewById(R.id.hours_down_image_view);
         minutesDownImageView = view.findViewById(R.id.minutes_down_image_view);
         secondsDownImageView = view.findViewById(R.id.seconds_down_image_view);
@@ -52,16 +52,40 @@ public class TimerFragment extends Fragment implements com.a.clock.Interfaces.Vi
         startButton = view.findViewById(R.id.timer_start_button);
         pauseButton = view.findViewById(R.id.timer_pause_button);
         resetButton = view.findViewById(R.id.timer_reset_button);
-
         pauseButton.hide();
         startButton.show();
+
+        if (timer != null) {
+            if (timer.isActive()) {
+                pauseButton.show();
+                startButton.hide();
+                makeArrowsInvisible();
+            }
+        }
 
         hoursUpImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 hoursInt = Integer.parseInt(hoursTextView.getText().toString());
-                if (hoursInt != 99) {
+                if (hoursInt < 100) {
                     ++hoursInt;
+                }
+                if (hoursInt < 10) {
+                    hours = "0" + hoursInt;
+                }
+                if (hoursInt >= 10) {
+                    hours = String.valueOf(hoursInt);
+                }
+                hoursTextView.setText(hours);
+            }
+        });
+
+        hoursDownImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                hoursInt = Integer.parseInt(hoursTextView.getText().toString());
+                if (hoursInt > 0) {
+                    --hoursInt;
                 }
                 if (hoursInt < 10) {
                     hours = "0" + hoursInt;
@@ -76,7 +100,7 @@ public class TimerFragment extends Fragment implements com.a.clock.Interfaces.Vi
             @Override
             public void onClick(View v) {
                 minutesInt = Integer.parseInt(minutesTextView.getText().toString());
-                if (minutesInt != 59) {
+                if (minutesInt < 60) {
                     ++minutesInt;
                 }
                 if (minutesInt < 10) {
@@ -88,11 +112,29 @@ public class TimerFragment extends Fragment implements com.a.clock.Interfaces.Vi
                 minutesTextView.setText(minutes);
             }
         });
+
+        minutesDownImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                minutesInt = Integer.parseInt(minutesTextView.getText().toString());
+                if (minutesInt > 0) {
+                    --minutesInt;
+                }
+                if (minutesInt < 10) {
+                    minutes = "0" + minutesInt;
+                }
+                if (minutesInt >= 10) {
+                    minutes = String.valueOf(minutesInt);
+                }
+                minutesTextView.setText(minutes);
+            }
+        });
+
         secondsUpImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 secondsInt = Integer.parseInt(secondsTextView.getText().toString());
-                if (secondsInt != 59) {
+                if (secondsInt < 60) {
                     ++secondsInt;
                 }
                 if (secondsInt < 10) {
@@ -105,43 +147,11 @@ public class TimerFragment extends Fragment implements com.a.clock.Interfaces.Vi
             }
         });
 
-        hoursDownImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int hoursInt = Integer.parseInt(hoursTextView.getText().toString());
-                if (hoursInt != 0) {
-                    --hoursInt;
-                }
-                if (hoursInt < 10) {
-                    hours = "0" + hoursInt;
-                }
-                if (hoursInt >= 10) {
-                    hours = String.valueOf(hoursInt);
-                }
-                hoursTextView.setText(hours);
-            }
-        });
-        minutesDownImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int minutesInt = Integer.parseInt(minutesTextView.getText().toString());
-                if (minutesInt != 0) {
-                    --minutesInt;
-                }
-                if (minutesInt < 10) {
-                    minutes = "0" + minutesInt;
-                }
-                if (minutesInt >= 10) {
-                    minutes = String.valueOf(minutesInt);
-                }
-                minutesTextView.setText(minutes);
-            }
-        });
         secondsDownImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int secondsInt = Integer.parseInt(secondsTextView.getText().toString());
-                if (secondsInt != 0) {
+                secondsInt = Integer.parseInt(secondsTextView.getText().toString());
+                if (secondsInt > 0) {
                     --secondsInt;
                 }
                 if (secondsInt < 10) {
@@ -157,6 +167,7 @@ public class TimerFragment extends Fragment implements com.a.clock.Interfaces.Vi
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 String secondsString = secondsTextView.getText().toString();
                 long seconds = Long.parseLong(secondsString) * 1000;
 
@@ -165,9 +176,13 @@ public class TimerFragment extends Fragment implements com.a.clock.Interfaces.Vi
                 String hoursString = hoursTextView.getText().toString();
                 long hours = Long.parseLong(hoursString) * 3600 * 1000;
                 long time = seconds + minutes + hours;
-                timer = new CountTimer(time, 1000, presenter, getContext());
+                timer = CountTimer.getInstance(time, 1000, presenter, getContext());
                 timer.start();
                 switchStartPauseButtons();
+                pauseButton.show();
+                startButton.hide();
+                makeArrowsInvisible();
+
             }
         });
 
@@ -188,35 +203,44 @@ public class TimerFragment extends Fragment implements com.a.clock.Interfaces.Vi
                 minutesInt = 0;
                 hoursTextView.setText("00");
                 hoursInt = 0;
+                makeArrowsVisible();
+                if (secondsDownImageView.getVisibility() == ImageView.GONE) {
+                    secondsDownImageView.setVisibility(ImageView.VISIBLE);
+                    secondsUpImageView.setVisibility(ImageView.VISIBLE);
+                    minutesDownImageView.setVisibility(ImageView.VISIBLE);
+                    minutesUpImageView.setVisibility(ImageView.VISIBLE);
+                    hoursDownImageView.setVisibility(ImageView.VISIBLE);
+                    hoursUpImageView.setVisibility(ImageView.VISIBLE);
+
+                }
             }
         });
-
         return view;
     }
 
     public void reduceSeconds() {
         if (secondsInt < 11) {
-            secondsTextView.setText("0" + String.valueOf(--secondsInt));
+            secondsTextView.setText("0" + --secondsInt);
         }
         if (secondsInt >= 11) {
             secondsTextView.setText(String.valueOf(--secondsInt));
         }
-        if (secondsInt == -1 ) {
+        if (secondsInt == -1) {
             secondsInt = 60;
             secondsTextView.setText(String.valueOf(--secondsInt));
             reduceMinutes();
         }
-
+        refreshTextViews();
     }
 
     public void reduceMinutes() {
         if (minutesInt < 11) {
-            minutesTextView.setText("0" + String.valueOf(--minutesInt));
+            minutesTextView.setText("0" + --minutesInt);
         }
         if (minutesInt >= 11) {
             minutesTextView.setText(String.valueOf(--minutesInt));
         }
-        if(minutesInt==-1&&hoursInt!=0){
+        if (minutesInt == -1 && hoursInt != 0) {
             minutesInt = 60;
             minutesTextView.setText(String.valueOf(--minutesInt));
             reduceHours();
@@ -225,23 +249,57 @@ public class TimerFragment extends Fragment implements com.a.clock.Interfaces.Vi
     }
 
     public void reduceHours() {
-        if (hoursInt < 10) {
-            hoursTextView.setText("0" + String.valueOf(--hoursInt));
+        if (hoursInt < 11) {
+            hoursTextView.setText("0" + --hoursInt);
         }
-        if (hoursInt >= 10) {
+        if (hoursInt >= 11) {
             hoursTextView.setText(String.valueOf(--hoursInt));
         }
 
     }
 
-    public void switchStartPauseButtons(){
-        if(startButton.isShown()){
+    public void switchStartPauseButtons() {
+        if (startButton.isShown()) {
             startButton.hide();
             pauseButton.show();
-        }
-        else if(pauseButton.isShown()){
+        } else if (pauseButton.isShown()) {
             pauseButton.hide();
             startButton.show();
         }
     }
+
+
+    public void makeArrowsInvisible() {
+        secondsDownImageView.setVisibility(ImageView.GONE);
+        secondsUpImageView.setVisibility(ImageView.GONE);
+        minutesDownImageView.setVisibility(ImageView.GONE);
+        minutesUpImageView.setVisibility(ImageView.GONE);
+        hoursDownImageView.setVisibility(ImageView.GONE);
+        hoursUpImageView.setVisibility(ImageView.GONE);
+    }
+
+    public void makeArrowsVisible() {
+        secondsDownImageView.setVisibility(ImageView.VISIBLE);
+        secondsUpImageView.setVisibility(ImageView.VISIBLE);
+        minutesDownImageView.setVisibility(ImageView.VISIBLE);
+        minutesUpImageView.setVisibility(ImageView.VISIBLE);
+        hoursDownImageView.setVisibility(ImageView.VISIBLE);
+        hoursUpImageView.setVisibility(ImageView.VISIBLE);
+    }
+
+    public void refreshTextViews(){
+        if (hoursInt < 11) {
+            hoursTextView.setText("0" + hoursInt);
+        }
+        if (hoursInt >= 11) {
+            hoursTextView.setText(String.valueOf(hoursInt));
+        }
+        if (minutesInt < 11) {
+            minutesTextView.setText("0" + minutesInt);
+        }
+        if (minutesInt >= 11) {
+            minutesTextView.setText(String.valueOf(minutesInt));
+        }
+    }
 }
+

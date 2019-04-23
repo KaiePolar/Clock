@@ -17,7 +17,8 @@ public interface View {
 
     void setUpTimeRecyclerViewAdapter(List<TimeItem> all);
 
-    interface TimerView{
-
+    interface TimerView {
     }
+
+    interface StopwatchView{}
 }

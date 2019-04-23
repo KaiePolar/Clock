@@ -8,14 +8,14 @@ import android.content.Context;
 import com.a.clock.Repositories.TimeRepository.TimeDao;
 import com.a.clock.Repositories.TimeRepository.TimeItem;
 
-@Database(entities = {TimeItem.class}, version = 1)
+@Database(entities = {TimeItem.class}, version = 15)
 public abstract class TimeDatabase extends RoomDatabase {
     private static TimeDatabase INSTANCE;
 
     public static TimeDatabase getDatabaseInstance(Context context) {
         if (INSTANCE == null) {
             INSTANCE =
-                    Room.databaseBuilder(context.getApplicationContext(), TimeDatabase.class, "user-database")
+                    Room.databaseBuilder(context.getApplicationContext(), TimeDatabase.class, "TimeDatabase")
                             // allow queries on the main thread.
                             // Don't do this on a real app! See PersistenceBasicSample for an example.
                             .allowMainThreadQueries()

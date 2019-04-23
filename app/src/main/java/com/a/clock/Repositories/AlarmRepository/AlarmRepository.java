@@ -4,7 +4,7 @@ import android.arch.persistence.room.Room;
 import android.content.Context;
 
 import com.a.clock.Interfaces.Repository;
-import com.a.clock.Repositories.ClockDatabase;
+import com.a.clock.Repositories.AlarmDatabase;
 import com.a.clock.Repositories.TimeRepository.TimeDao;
 import com.a.clock.Repositories.TimeRepository.TimeItem;
 
@@ -15,7 +15,7 @@ public class AlarmRepository implements Repository {
 
     public AlarmRepository(Context context){
         this.context = context;
-        Room.databaseBuilder(context, ClockDatabase.class,"database").allowMainThreadQueries().fallbackToDestructiveMigration().build();
+        Room.databaseBuilder(context, AlarmDatabase.class,"AlarmDatabase").allowMainThreadQueries().fallbackToDestructiveMigration().build();
     }
 
     public List<AlarmItem> getAlarmElementsList() {
@@ -30,7 +30,7 @@ public class AlarmRepository implements Repository {
 
     @Override
     public AlarmDao getAlarmDatabaseDao() {
-       return  ClockDatabase.getDatabaseInstance(context)
+       return  AlarmDatabase.getDatabaseInstance(context)
                .alarmDao();
     }
 

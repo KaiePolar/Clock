@@ -16,5 +16,7 @@ public class TimeItem {
 
     public String cityname;
 
+    public int position;
+
 
 }

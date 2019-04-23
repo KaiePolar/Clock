@@ -2,8 +2,6 @@ package com.a.clock.Views.Fragments;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.SystemClock;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -15,34 +13,32 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.a.clock.AdditionalClasses.Stopwatch;
 import com.a.clock.Presenters.StopwatchPresenter;
 import com.a.clock.R;
-import com.a.clock.Repositories.AlarmRepository.AlarmItem;
-import com.a.clock.Repositories.TimeRepository.TimeItem;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
-public class StopwatchFragment extends Fragment implements com.a.clock.Interfaces.View {
+public class StopwatchFragment extends Fragment implements com.a.clock.Interfaces.View.StopwatchView {
 
     private StopwatchPresenter presenter;
-    private TextView textView;
-    private Button  resetButton, lapButton;
+    private TextView stopwatchTextView;
+    private Button resetButton, lapButton;
     private FloatingActionButton startButton, pauseButton;
-    private long millisecondTime, startTime, timeBuff, updateTime = 0L;
-    private Handler handler;
-    private int seconds, minutes, milliSeconds;
+
     private ListView lapsListView;
     private String[] ListElements = new String[]{};
     private ArrayList<String> ListElementsArrayList;
     private ArrayAdapter<String> adapter;
-    private Runnable runnable;
+    private Stopwatch stopwatch;
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         presenter = new StopwatchPresenter();
+        stopwatch = Stopwatch.getInstance(presenter);
     }
 
     @SuppressLint("RestrictedApi")
@@ -53,17 +49,20 @@ public class StopwatchFragment extends Fragment implements com.a.clock.Interface
         View view = inflater.inflate(R.layout.fragment_stopwatch, container, false);
         presenter.bindView(this);
 
-        textView = view.findViewById(R.id.stopwatch_time_textview);
+        stopwatchTextView = view.findViewById(R.id.stopwatch_time_textview);
         startButton = view.findViewById(R.id.stopwatch_start_button);
         pauseButton = view.findViewById(R.id.stopwatch_pause_button);
         resetButton = view.findViewById(R.id.stopwatch_reset_button);
         lapButton = view.findViewById(R.id.stopwatch_lap_button);
         lapsListView = view.findViewById(R.id.stopwatch_laps_listview);
 
-        startButton.setVisibility(View.VISIBLE);
-        pauseButton.setVisibility(View.GONE);
-
-        handler = new Handler();
+        if (stopwatch.isActive()) {
+            startButton.setVisibility(View.GONE);
+            pauseButton.setVisibility(View.VISIBLE);
+        } else {
+            startButton.setVisibility(View.VISIBLE);
+            pauseButton.setVisibility(View.GONE);
+        }
 
         ListElementsArrayList = new ArrayList<String>(Arrays.asList(ListElements));
 
@@ -78,9 +77,8 @@ public class StopwatchFragment extends Fragment implements com.a.clock.Interface
             @Override
             public void onClick(View view) {
 
-                startTime = SystemClock.uptimeMillis();
-                handler.postDelayed(runnable, 0);
 
+                stopwatch.startStopwatch();
                 resetButton.setEnabled(false);
                 startButton.setVisibility(View.GONE);
                 pauseButton.setVisibility(View.VISIBLE);
@@ -92,10 +90,8 @@ public class StopwatchFragment extends Fragment implements com.a.clock.Interface
             @Override
             public void onClick(View view) {
 
-                timeBuff += millisecondTime;
 
-                handler.removeCallbacks(runnable);
-
+                stopwatch.pauseStopwatch();
                 resetButton.setEnabled(true);
                 pauseButton.setVisibility(View.GONE);
                 startButton.setVisibility(View.VISIBLE);
@@ -107,15 +103,9 @@ public class StopwatchFragment extends Fragment implements com.a.clock.Interface
             @Override
             public void onClick(View view) {
 
-                millisecondTime = 0L;
-                startTime = 0L;
-                timeBuff = 0L;
-                updateTime = 0L;
-                seconds = 0;
-                minutes = 0;
-                milliSeconds = 0;
+                stopwatch.resetStopwatch();
 
-                textView.setText("00:00:00");
+                stopwatchTextView.setText("00:00:000");
 
                 ListElementsArrayList.clear();
 
@@ -127,65 +117,17 @@ public class StopwatchFragment extends Fragment implements com.a.clock.Interface
             @Override
             public void onClick(View view) {
 
-                ListElementsArrayList.add(textView.getText().toString());
+                ListElementsArrayList.add(stopwatchTextView.getText().toString());
 
                 adapter.notifyDataSetChanged();
             }
         });
 
-
-        runnable = new Runnable() {
-
-            public void run() {
-
-                millisecondTime = SystemClock.uptimeMillis() - startTime;
-
-                updateTime = timeBuff + millisecondTime;
-
-                seconds = (int) (updateTime / 1000);
-
-                minutes = seconds / 60;
-
-                seconds = seconds % 60;
-
-                milliSeconds = (int) (updateTime % 1000);
-
-                textView.setText("" + minutes + ":"
-                        + String.format("%02d", seconds) + ":"
-                        + String.format("%03d", milliSeconds));
-
-                handler.postDelayed(this, 0);
-            }
-
-        };
-
-
         return view;
     }
 
-
-    @Override
-    public void setRecyclerView(ArrayList list1, ArrayList list2) {
-
+    public void setTextViewTime(String s) {
+        stopwatchTextView.setText(s);
     }
 
-    @Override
-    public void showDeleteDialog() {
-
-    }
-
-    @Override
-    public void hideDeleteDialog() {
-
-    }
-
-    @Override
-    public void setUpAlarmRecyclerViewAdapter(List<AlarmItem> all) {
-
-    }
-
-    @Override
-    public void setUpTimeRecyclerViewAdapter(List<TimeItem> all) {
-
-    }
 }

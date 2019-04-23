@@ -8,18 +8,17 @@ import android.content.Context;
 import com.a.clock.Repositories.AlarmRepository.AlarmDao;
 import com.a.clock.Repositories.AlarmRepository.AlarmItem;
 
-@Database(entities = {AlarmItem.class}, version = 7)
-public abstract class ClockDatabase extends RoomDatabase {
-    private static ClockDatabase INSTANCE;
+@Database(entities = {AlarmItem.class}, version = 15)
+public abstract class AlarmDatabase extends RoomDatabase {
+    private static AlarmDatabase INSTANCE;
 
-    public static ClockDatabase getDatabaseInstance(Context context) {
+    public static AlarmDatabase getDatabaseInstance(Context context) {
         if (INSTANCE == null) {
             INSTANCE =
-                    Room.databaseBuilder(context.getApplicationContext(), ClockDatabase.class, "user-database")
+                    Room.databaseBuilder(context.getApplicationContext(), AlarmDatabase.class, "AlarmDatabase")
                             // allow queries on the main thread.
                             // Don't do this on a real app! See PersistenceBasicSample for an example.
                             .allowMainThreadQueries()
-                            .fallbackToDestructiveMigration()
                             .build();
         }
         return INSTANCE;

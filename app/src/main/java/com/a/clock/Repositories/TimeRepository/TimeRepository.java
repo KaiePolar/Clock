@@ -15,7 +15,7 @@ public class TimeRepository implements Repository {
 
     public TimeRepository(Context context) {
         this.context = context;
-        Room.databaseBuilder(context, TimeDatabase.class, "database").allowMainThreadQueries().fallbackToDestructiveMigration().build();
+        Room.databaseBuilder(context, TimeDatabase.class, "TimeDatabase").allowMainThreadQueries().fallbackToDestructiveMigration().build();
     }
 
     public List<AlarmItem> getAlarmElementsList() {

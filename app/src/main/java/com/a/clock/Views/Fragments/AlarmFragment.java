@@ -41,8 +41,6 @@ public class AlarmFragment extends Fragment implements com.a.clock.Interfaces.Vi
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-
         view = inflater.inflate(R.layout.fragment_alarm, container, false);
 
         addAlarmButton = view.findViewById(R.id.alarm_add_button);

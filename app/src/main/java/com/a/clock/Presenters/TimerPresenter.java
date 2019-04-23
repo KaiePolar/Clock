@@ -13,6 +13,11 @@ public class TimerPresenter implements Presenter.TimerPresenter {
     }
 
     @Override
+    public void unbindView() {
+        view = null;
+    }
+
+    @Override
     public void reduceSeconds() {
         view.reduceSeconds();
     }
@@ -20,6 +25,11 @@ public class TimerPresenter implements Presenter.TimerPresenter {
     @Override
     public void switchStartPauseButtons() {
         view.switchStartPauseButtons();
+    }
+
+    @Override
+    public void makeArrowsVisible() {
+        view.makeArrowsVisible();
     }
 
 }

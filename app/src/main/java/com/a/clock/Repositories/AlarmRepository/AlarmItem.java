@@ -20,5 +20,5 @@ public class AlarmItem {
 
     public boolean repeating;
 
-    //public Alarm alarm;
+    public int position;
 }
